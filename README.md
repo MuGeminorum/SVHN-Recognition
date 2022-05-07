@@ -19,7 +19,7 @@ A PyTorch implementation of [Multi-digit Number Recognition from Street View Ima
         <td>122000</td>
         <td>GTX 1080 Ti</td>
         <td>512</td>
-        <td>0.16</td>
+        <td>0.01</td>
         <td>100</td>
         <td>625</td>
         <td>0.9</td>

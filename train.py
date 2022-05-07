@@ -15,6 +15,9 @@ from dataset import Dataset
 from evaluator import Evaluator
 from model import Model
 
+import warnings
+warnings.filterwarnings("ignore")
+
 parser = argparse.ArgumentParser()
 parser.add_argument('-d', '--data_dir', default='data',
                     help='directory to read LMDB files')
