@@ -1,17 +1,22 @@
 import argparse
 import os
 import numpy as np
-from visdom import Visdom
+import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-l', '--logdir', default='./logs', help='directory to read logs')
+parser.add_argument('-l', '--logdir', default='logs',
+                    help='directory to read logs')
 
 
 def _visualize(path_to_log_dir):
     losses = np.load(os.path.join(path_to_log_dir, 'losses.npy'))
-
-    viz = Visdom()
-    viz.line(losses)
+    plt.plot(losses)
+    plt.xlabel('Step(k)')
+    plt.ylabel('Loss')
+    plt.savefig('images\\loss.png')
+    plt.show()
+    # viz = Visdom()
+    # viz.line(losses)
 
 
 def main(args):
