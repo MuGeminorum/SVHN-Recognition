@@ -44,7 +44,7 @@ $ python infer.py -c="logs\\model-122000.pth" -i="images\\457.png"
 ![](images/2003.png)
 ```
 $ python infer.py -c="logs\\model-122000.pth" -i="images\\2003.png"
-457
+2003
 ```
 
 ### Training curve
@@ -88,7 +88,7 @@ $ python infer.py -c="logs\\model-122000.pth" -i="images\\2003.png"
     ```
 
 
-## Usage
+## Run
 
 1. Run *convert_to_lmdb.py*
 
