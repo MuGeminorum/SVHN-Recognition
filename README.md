@@ -69,7 +69,7 @@ $ python infer.py -c="logs\\model-122000.pth" -i="images\\2003.png"
     $ cd SVHN-Recognition
     ```
 
-2. Download [SVHN Dataset](http://ufldl.stanford.edu/housenumbers/) train.tar.gz, test.tar.gz
+2. Download [SVHN Dataset](http://ufldl.stanford.edu/housenumbers/) Format 1 (train.tar.gz, test.tar.gz)
 
 3. Extract to data folder, now your folder structure should be like below:
     ```
