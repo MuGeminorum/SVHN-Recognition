@@ -1,6 +1,5 @@
 import glob
 import os
-
 import torch
 import torch.jit
 import torch.nn as nn
@@ -18,56 +17,64 @@ class Model(torch.jit.ScriptModule):
         super(Model, self).__init__()
 
         self._hidden1 = nn.Sequential(
-            nn.Conv2d(in_channels=3, out_channels=48, kernel_size=5, padding=2),
+            nn.Conv2d(in_channels=3, out_channels=48,
+                      kernel_size=5, padding=2),
             nn.BatchNorm2d(num_features=48),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2, padding=1),
             nn.Dropout(0.2)
         )
         self._hidden2 = nn.Sequential(
-            nn.Conv2d(in_channels=48, out_channels=64, kernel_size=5, padding=2),
+            nn.Conv2d(in_channels=48, out_channels=64,
+                      kernel_size=5, padding=2),
             nn.BatchNorm2d(num_features=64),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=1, padding=1),
             nn.Dropout(0.2)
         )
         self._hidden3 = nn.Sequential(
-            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=5, padding=2),
+            nn.Conv2d(in_channels=64, out_channels=128,
+                      kernel_size=5, padding=2),
             nn.BatchNorm2d(num_features=128),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2, padding=1),
             nn.Dropout(0.2)
         )
         self._hidden4 = nn.Sequential(
-            nn.Conv2d(in_channels=128, out_channels=160, kernel_size=5, padding=2),
+            nn.Conv2d(in_channels=128, out_channels=160,
+                      kernel_size=5, padding=2),
             nn.BatchNorm2d(num_features=160),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=1, padding=1),
             nn.Dropout(0.2)
         )
         self._hidden5 = nn.Sequential(
-            nn.Conv2d(in_channels=160, out_channels=192, kernel_size=5, padding=2),
+            nn.Conv2d(in_channels=160, out_channels=192,
+                      kernel_size=5, padding=2),
             nn.BatchNorm2d(num_features=192),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2, padding=1),
             nn.Dropout(0.2)
         )
         self._hidden6 = nn.Sequential(
-            nn.Conv2d(in_channels=192, out_channels=192, kernel_size=5, padding=2),
+            nn.Conv2d(in_channels=192, out_channels=192,
+                      kernel_size=5, padding=2),
             nn.BatchNorm2d(num_features=192),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=1, padding=1),
             nn.Dropout(0.2)
         )
         self._hidden7 = nn.Sequential(
-            nn.Conv2d(in_channels=192, out_channels=192, kernel_size=5, padding=2),
+            nn.Conv2d(in_channels=192, out_channels=192,
+                      kernel_size=5, padding=2),
             nn.BatchNorm2d(num_features=192),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2, padding=1),
             nn.Dropout(0.2)
         )
         self._hidden8 = nn.Sequential(
-            nn.Conv2d(in_channels=192, out_channels=192, kernel_size=5, padding=2),
+            nn.Conv2d(in_channels=192, out_channels=192,
+                      kernel_size=5, padding=2),
             nn.BatchNorm2d(num_features=192),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=1, padding=1),
@@ -113,17 +120,21 @@ class Model(torch.jit.ScriptModule):
         return length_logits, digit1_logits, digit2_logits, digit3_logits, digit4_logits, digit5_logits
 
     def store(self, path_to_dir, step, maximum=5):
-        path_to_models = glob.glob(os.path.join(path_to_dir, Model.CHECKPOINT_FILENAME_PATTERN.format('*')))
+        path_to_models = glob.glob(os.path.join(
+            path_to_dir, Model.CHECKPOINT_FILENAME_PATTERN.format('*')))
         if len(path_to_models) == maximum:
-            min_step = min([int(path_to_model.split('/')[-1][6:-4]) for path_to_model in path_to_models])
-            path_to_min_step_model = os.path.join(path_to_dir, Model.CHECKPOINT_FILENAME_PATTERN.format(min_step))
+            min_step = min([int(path_to_model.split('\\')[-1][6:-4])
+                           for path_to_model in path_to_models])
+            path_to_min_step_model = os.path.join(
+                path_to_dir, Model.CHECKPOINT_FILENAME_PATTERN.format(min_step))
             os.remove(path_to_min_step_model)
 
-        path_to_checkpoint_file = os.path.join(path_to_dir, Model.CHECKPOINT_FILENAME_PATTERN.format(step))
+        path_to_checkpoint_file = os.path.join(
+            path_to_dir, Model.CHECKPOINT_FILENAME_PATTERN.format(step))
         torch.save(self.state_dict(), path_to_checkpoint_file)
         return path_to_checkpoint_file
 
     def restore(self, path_to_checkpoint_file):
         self.load_state_dict(torch.load(path_to_checkpoint_file))
-        step = int(path_to_checkpoint_file.split('/')[-1][6:-4])
+        step = int(path_to_checkpoint_file.split('\\')[-1][6:-4])
         return step

@@ -1,14 +1,17 @@
 import argparse
 import torch
-
 from PIL import Image
 from torchvision import transforms
-
 from model import Model
+import warnings
+warnings.filterwarnings("ignore")
+
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-c', '--checkpoint', type=str, required=True, help='path to checkpoint, e.g. ./logs/model-100.pth')
-parser.add_argument('input', type=str, help='path to input image')
+parser.add_argument('-c', '--checkpoint', type=str, default='logs\\model-122000.pth',
+                    help='path to checkpoint, e.g. ./logs/model-100.pth')
+parser.add_argument('-i', '--input', type=str,
+                    default='images\\457.png', help='path to input image')
 
 
 def _infer(path_to_checkpoint_file, path_to_input_image):
@@ -38,8 +41,18 @@ def _infer(path_to_checkpoint_file, path_to_input_image):
         digit4_prediction = digit4_logits.max(1)[1]
         digit5_prediction = digit5_logits.max(1)[1]
 
-        print('length:', length_prediction.item())
-        print('digits:', digit1_prediction.item(), digit2_prediction.item(), digit3_prediction.item(), digit4_prediction.item(), digit5_prediction.item())
+        output = [digit1_prediction.item(), digit2_prediction.item(),
+                  digit3_prediction.item(), digit4_prediction.item(), digit5_prediction.item()]
+
+        outstr = ''
+
+        for i in range(length_prediction.item()):
+            outstr += str(output[i])
+
+        print(outstr)
+        # print('length:', length_prediction.item())
+        # print('digits:', digit1_prediction.item(), digit2_prediction.item(
+        # ), digit3_prediction.item(), digit4_prediction.item(), digit5_prediction.item())
 
 
 def main(args):
