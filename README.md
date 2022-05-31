@@ -29,6 +29,8 @@ A PyTorch implementation of [Multi-digit Number Recognition from Street View Ima
 
 ### Example
 
+Download saved model at <https://github.com/george-chou/SVHN-Recognition/releases/download/122000/logs.7z>
+
 ![](images/03.png)
 ```
 $ python infer.py -c="logs\\model-122000.pth" -i="images\\05.png"
