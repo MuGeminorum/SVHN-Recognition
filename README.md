@@ -29,25 +29,13 @@ A PyTorch implementation of [Multi-digit Number Recognition from Street View Ima
 
 ### Example
 
-Download saved model at <https://github.com/george-chou/SVHN-Recognition/releases/download/122000/logs.7z>
+Download [saved model](https://github.com/george-chou/SVHN-Recognition/releases/download/122000/logs.7z)
 
-![](images/03.png)
-```
-$ python infer.py -c="logs\\model-122000.pth" -i="images\\05.png"
-03
-```
-
-![](images/457.png)
-```
-$ python infer.py -c="logs\\model-122000.pth" -i="images\\457.png"
-457
-```
-
-![](images/2003.png)
-```
-$ python infer.py -c="logs\\model-122000.pth" -i="images\\2003.png"
-2003
-```
+| Command                                                             |        Sample        | Result |
+| :------------------------------------------------------------------ | :------------------: | :----- |
+| `python infer.py -c="logs\\model-122000.pth" -i="images\\03.png"`   |  ![](images/03.png)  | 03     |
+| `python infer.py -c="logs\\model-122000.pth" -i="images\\457.png"`  | ![](images/457.png)  | 457    |
+| `python infer.py -c="logs\\model-122000.pth" -i="images\\2003.png"` | ![](images/2003.png) | 2003   |
 
 ### Training curve
 
