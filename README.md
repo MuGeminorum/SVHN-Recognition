@@ -40,7 +40,7 @@ A PyTorch implementation of [Multi-digit Number Recognition from Street View Ima
     $ git clone git@github.com:george-chou/SVHN-Recognition.git
     $ cd SVHN-Recognition
     ```
-2. Download [SVHN Dataset](http://ufldl.stanford.edu/housenumbers/) Format 1 (train.tar.gz, test.tar.gz)
+2. Download [SVHN Dataset](http://ufldl.stanford.edu/housenumbers) Format 1 (train.tar.gz, test.tar.gz)
 3. Extract to data folder, now your folder structure should be like below:
     ```
     SVHN-Recognition
@@ -63,12 +63,12 @@ A PyTorch implementation of [Multi-digit Number Recognition from Street View Ima
 3. Run *infer.py*
 
 ### Training curve
-![](images/loss.png)
+![](https://picrepo.netlify.app/SVHN-Recognition/loss.png)
 
 ### Example
 Download [saved model](https://github.com/george-chou/SVHN-Recognition/releases/download/122000/logs.7z)
-| Command                                                             |        Sample        | Result |
-| :------------------------------------------------------------------ | :------------------: | :----- |
-| `python infer.py -c="logs\\model-122000.pth" -i="images\\03.png"`   |  ![](images/03.png)  | 03     |
-| `python infer.py -c="logs\\model-122000.pth" -i="images\\457.png"`  | ![](images/457.png)  | 457    |
-| `python infer.py -c="logs\\model-122000.pth" -i="images\\2003.png"` | ![](images/2003.png) | 2003   |
+| Command                                                             |                           Sample                           | Result |
+| :------------------------------------------------------------------ | :--------------------------------------------------------: | :----- |
+| `python infer.py -c="logs\\model-122000.pth" -i="images\\03.png"`   |  ![](https://picrepo.netlify.app/SVHN-Recognition/03.png)  | 03     |
+| `python infer.py -c="logs\\model-122000.pth" -i="images\\457.png"`  | ![](https://picrepo.netlify.app/SVHN-Recognition/457.png)  | 457    |
+| `python infer.py -c="logs\\model-122000.pth" -i="images\\2003.png"` | ![](https://picrepo.netlify.app/SVHN-Recognition/2003.png) | 2003   |
