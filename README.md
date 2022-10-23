@@ -66,7 +66,7 @@ A PyTorch implementation of [Multi-digit Number Recognition from Street View Ima
 ![](https://picrepo.netlify.app/SVHN-Recognition/loss.png)
 
 ### Example
-Download [saved model](https://github.com/george-chou/SVHN-Recognition/releases/download/122000/logs.7z)
+Download [saved model](https://github.com/george-chou/SVHN-Recognition/releases/download/122000/logs.7z) to assigned path and run following commands:
 | Command                                                             |                           Sample                           | Result |
 | :------------------------------------------------------------------ | :--------------------------------------------------------: | :----- |
 | `python infer.py -c="logs\\model-122000.pth" -i="images\\03.png"`   |  ![](https://picrepo.netlify.app/SVHN-Recognition/03.png)  | 03     |
