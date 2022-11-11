@@ -1,4 +1,8 @@
 # SVHN-Recognition
+
+[![Python application](https://github.com/george-chou/SVHN-Recognition/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/george-chou/SVHN-Recognition/actions/workflows/python-app.yml)
+[![license](https://img.shields.io/github/license/george-chou/SVHN-Recognition.svg)](https://github.com/george-chou/SVHN-Recognition/blob/master/LICENSE)
+
 A PyTorch implementation of [Multi-digit Number Recognition from Street View Imagery using Deep Convolutional Neural Networks](http://arxiv.org/pdf/1312.6082.pdf)
 
 ## Environment
