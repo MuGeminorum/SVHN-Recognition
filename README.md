@@ -1,7 +1,7 @@
 # SVHN-Recognition
 
-[![Python application](https://github.com/george-chou/SVHN-Recognition/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/george-chou/SVHN-Recognition/actions/workflows/python-app.yml)
-[![license](https://img.shields.io/github/license/george-chou/SVHN-Recognition.svg)](https://github.com/george-chou/SVHN-Recognition/blob/master/LICENSE)
+[![Python application](https://github.com/MuGeminorum/SVHN-Recognition/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/MuGeminorum/SVHN-Recognition/actions/workflows/python-app.yml)
+[![license](https://img.shields.io/github/license/MuGeminorum/SVHN-Recognition.svg)](https://github.com/MuGeminorum/SVHN-Recognition/blob/master/LICENSE)
 
 A PyTorch implementation of [Multi-digit Number Recognition from Street View Imagery using Deep Convolutional Neural Networks](http://arxiv.org/pdf/1312.6082.pdf)
 
@@ -41,7 +41,7 @@ A PyTorch implementation of [Multi-digit Number Recognition from Street View Ima
 1. Clone the source code
 
     ```
-    $ git clone git@github.com:george-chou/SVHN-Recognition.git
+    $ git clone git@github.com:MuGeminorum/SVHN-Recognition.git
     $ cd SVHN-Recognition
     ```
 2. Download [SVHN Dataset](http://ufldl.stanford.edu/housenumbers) Format 1 (train.tar.gz, test.tar.gz)
@@ -70,7 +70,7 @@ A PyTorch implementation of [Multi-digit Number Recognition from Street View Ima
 ![loss](https://user-images.githubusercontent.com/20459298/233124972-36c30185-e3dc-48b8-b8a4-bc5767e6b507.png)
 
 ### Example
-Download [saved model](https://github.com/george-chou/SVHN-Recognition/releases/download/122000/logs.7z) to assigned path and run following commands:
+Download [saved model](https://github.com/MuGeminorum/SVHN-Recognition/releases/download/122000/logs.7z) to assigned path and run following commands:
 | Command                                                             |                           Sample                           | Result |
 | :------------------------------------------------------------------ | :--------------------------------------------------------: | :----- |
 | `python infer.py -c="logs\\model-122000.pth" -i="images\\03.png"`   |  ![03](https://user-images.githubusercontent.com/20459298/233124799-5d6d074e-aec1-4a1a-937d-1a031a329b37.png)  | 03     |
