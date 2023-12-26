@@ -4,6 +4,13 @@
 
 A PyTorch implementation of [Multi-digit Number Recognition from Street View Imagery using Deep Convolutional Neural Networks](http://arxiv.org/pdf/1312.6082.pdf)
 
+## Requirements
+```bash
+conda create -n svhn --yes --file conda.txt
+conda activate svhn
+pip install -r requirements.txt
+```
+
 ## Environment
 * Python 3.6
 * torch 1.0
