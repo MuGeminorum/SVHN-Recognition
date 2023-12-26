@@ -1,5 +1,5 @@
-import glob
 import os
+import glob
 import torch
 import torch.jit
 import torch.nn as nn
@@ -8,73 +8,106 @@ import torch.nn as nn
 class Model(torch.jit.ScriptModule):
     CHECKPOINT_FILENAME_PATTERN = 'model-{}.pth'
 
-    __constants__ = ['_hidden1', '_hidden2', '_hidden3', '_hidden4', '_hidden5',
-                     '_hidden6', '_hidden7', '_hidden8', '_hidden9', '_hidden10',
-                     '_features', '_classifier',
-                     '_digit_length', '_digit1', '_digit2', '_digit3', '_digit4', '_digit5']
+    __constants__ = [
+        '_hidden1', '_hidden2', '_hidden3', '_hidden4', '_hidden5', '_hidden6',
+        '_hidden7', '_hidden8', '_hidden9', '_hidden10', '_features', '_classifier',
+        '_digit_length', '_digit1', '_digit2', '_digit3', '_digit4', '_digit5'
+    ]
 
     def __init__(self):
         super(Model, self).__init__()
 
         self._hidden1 = nn.Sequential(
-            nn.Conv2d(in_channels=3, out_channels=48,
-                      kernel_size=5, padding=2),
+            nn.Conv2d(
+                in_channels=3,
+                out_channels=48,
+                kernel_size=5,
+                padding=2
+            ),
             nn.BatchNorm2d(num_features=48),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2, padding=1),
             nn.Dropout(0.2)
         )
         self._hidden2 = nn.Sequential(
-            nn.Conv2d(in_channels=48, out_channels=64,
-                      kernel_size=5, padding=2),
+            nn.Conv2d(
+                in_channels=48,
+                out_channels=64,
+                kernel_size=5,
+                padding=2
+            ),
             nn.BatchNorm2d(num_features=64),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=1, padding=1),
             nn.Dropout(0.2)
         )
         self._hidden3 = nn.Sequential(
-            nn.Conv2d(in_channels=64, out_channels=128,
-                      kernel_size=5, padding=2),
+            nn.Conv2d(
+                in_channels=64,
+                out_channels=128,
+                kernel_size=5,
+                padding=2
+            ),
             nn.BatchNorm2d(num_features=128),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2, padding=1),
             nn.Dropout(0.2)
         )
         self._hidden4 = nn.Sequential(
-            nn.Conv2d(in_channels=128, out_channels=160,
-                      kernel_size=5, padding=2),
+            nn.Conv2d(
+                in_channels=128,
+                out_channels=160,
+                kernel_size=5,
+                padding=2
+            ),
             nn.BatchNorm2d(num_features=160),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=1, padding=1),
             nn.Dropout(0.2)
         )
         self._hidden5 = nn.Sequential(
-            nn.Conv2d(in_channels=160, out_channels=192,
-                      kernel_size=5, padding=2),
+            nn.Conv2d(
+                in_channels=160,
+                out_channels=192,
+                kernel_size=5,
+                padding=2
+            ),
             nn.BatchNorm2d(num_features=192),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2, padding=1),
             nn.Dropout(0.2)
         )
         self._hidden6 = nn.Sequential(
-            nn.Conv2d(in_channels=192, out_channels=192,
-                      kernel_size=5, padding=2),
+            nn.Conv2d(
+                in_channels=192,
+                out_channels=192,
+                kernel_size=5,
+                padding=2
+            ),
             nn.BatchNorm2d(num_features=192),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=1, padding=1),
             nn.Dropout(0.2)
         )
         self._hidden7 = nn.Sequential(
-            nn.Conv2d(in_channels=192, out_channels=192,
-                      kernel_size=5, padding=2),
+            nn.Conv2d(
+                in_channels=192,
+                out_channels=192,
+                kernel_size=5,
+                padding=2
+            ),
             nn.BatchNorm2d(num_features=192),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2, padding=1),
             nn.Dropout(0.2)
         )
         self._hidden8 = nn.Sequential(
-            nn.Conv2d(in_channels=192, out_channels=192,
-                      kernel_size=5, padding=2),
+            nn.Conv2d(
+                in_channels=192,
+                out_channels=192,
+                kernel_size=5,
+                padding=2
+            ),
             nn.BatchNorm2d(num_features=192),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=1, padding=1),

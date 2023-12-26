@@ -1,5 +1,4 @@
 # SVHN-Recognition
-
 [![Python application](https://github.com/MuGeminorum/SVHN-Recognition/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/MuGeminorum/SVHN-Recognition/actions/workflows/python-app.yml)
 [![license](https://img.shields.io/github/license/MuGeminorum/SVHN-Recognition.svg)](https://github.com/MuGeminorum/SVHN-Recognition/blob/master/LICENSE)
 
@@ -39,12 +38,13 @@ A PyTorch implementation of [Multi-digit Number Recognition from Street View Ima
 
 ## Deploy
 1. Clone the source code
-
     ```
     $ git clone git@github.com:MuGeminorum/SVHN-Recognition.git
     $ cd SVHN-Recognition
     ```
+    
 2. Download [SVHN Dataset](http://ufldl.stanford.edu/housenumbers) Format 1 (train.tar.gz, test.tar.gz)
+
 3. Extract to data folder, now your folder structure should be like below:
     ```
     SVHN-Recognition
@@ -71,8 +71,8 @@ A PyTorch implementation of [Multi-digit Number Recognition from Street View Ima
 
 ### Example
 Download [saved model](https://github.com/MuGeminorum/SVHN-Recognition/releases/download/122000/logs.7z) to assigned path and run following commands:
-| Command                                                             |                           Sample                           | Result |
-| :------------------------------------------------------------------ | :--------------------------------------------------------: | :----- |
+| Command                                                             |                                                     Sample                                                     | Result |
+| :------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------: | :----- |
 | `python infer.py -c="logs\\model-122000.pth" -i="images\\03.png"`   |  ![03](https://user-images.githubusercontent.com/20459298/233124799-5d6d074e-aec1-4a1a-937d-1a031a329b37.png)  | 03     |
 | `python infer.py -c="logs\\model-122000.pth" -i="images\\457.png"`  | ![457](https://user-images.githubusercontent.com/20459298/233124853-8ec2d26d-eac7-48b6-84dc-7fdd099b9757.png)  | 457    |
 | `python infer.py -c="logs\\model-122000.pth" -i="images\\2003.png"` | ![2003](https://user-images.githubusercontent.com/20459298/233124905-af032c12-f949-4ca7-9132-443f5b3deb59.png) | 2003   |
