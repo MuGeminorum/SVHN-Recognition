@@ -1,17 +1,21 @@
-import argparse
-import glob
 import os
-import random
+import glob
 import h5py
 import lmdb
+import random
+import argparse
+import example_pb2
 import numpy as np
 from PIL import Image
-import example_pb2
 from meta import Meta
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-d', '--data_dir', default='./data',
-                    help='directory to SVHN (format 1) folders and write the converted files')
+parser.add_argument(
+    '-d',
+    '--data_dir',
+    default='./data',
+    help='directory to SVHN (format 1) folders and write the converted files'
+)
 
 
 class ExampleReader(object):
@@ -33,18 +37,23 @@ class ExampleReader(object):
             values = [f[attr[i].item()][0][0]
                       for i in range(len(attr))] if len(attr) > 1 else [attr[0][0]]
             attrs[key] = values
+
         return attrs
 
     @staticmethod
     def _preprocess(image, bbox_left, bbox_top, bbox_width, bbox_height):
-        cropped_left, cropped_top, cropped_width, cropped_height = (int(round(bbox_left - 0.15 * bbox_width)),
-                                                                    int(round(
-                                                                        bbox_top - 0.15 * bbox_height)),
-                                                                    int(round(
-                                                                        bbox_width * 1.3)),
-                                                                    int(round(bbox_height * 1.3)))
-        image = image.crop([cropped_left, cropped_top, cropped_left +
-                           cropped_width, cropped_top + cropped_height])
+        cropped_left, cropped_top, cropped_width, cropped_height = (
+            int(round(bbox_left - 0.15 * bbox_width)),
+            int(round(bbox_top - 0.15 * bbox_height)),
+            int(round(bbox_width * 1.3)),
+            int(round(bbox_height * 1.3))
+        )
+        image = image.crop([
+            cropped_left,
+            cropped_top,
+            cropped_left + cropped_width,
+            cropped_top + cropped_height
+        ])
         image = image.resize([64, 64])
         return image
 
@@ -54,6 +63,7 @@ class ExampleReader(object):
         """
         if self._example_pointer == self._num_examples:
             return None
+
         path_to_image_file = self._path_to_image_files[self._example_pointer]
         index = int(path_to_image_file.split('\\')[-1].split('.')[0]) - 1
         self._example_pointer += 1
@@ -72,20 +82,30 @@ class ExampleReader(object):
 
         attrs_left, attrs_top, attrs_width, attrs_height = map(lambda x: [int(
             i) for i in x], [attrs['left'], attrs['top'], attrs['width'], attrs['height']])
-        min_left, min_top, max_right, max_bottom = (min(attrs_left),
-                                                    min(attrs_top),
-                                                    max(map(lambda x, y: x + y,
-                                                        attrs_left, attrs_width)),
-                                                    max(map(lambda x, y: x + y, attrs_top, attrs_height)))
-        center_x, center_y, max_side = ((min_left + max_right) / 2.0,
-                                        (min_top + max_bottom) / 2.0,
-                                        max(max_right - min_left, max_bottom - min_top))
-        bbox_left, bbox_top, bbox_width, bbox_height = (center_x - max_side / 2.0,
-                                                        center_y - max_side / 2.0,
-                                                        max_side,
-                                                        max_side)
-        image = np.array(ExampleReader._preprocess(Image.open(
-            path_to_image_file), bbox_left, bbox_top, bbox_width, bbox_height)).tobytes()
+        min_left, min_top, max_right, max_bottom = (
+            min(attrs_left),
+            min(attrs_top),
+            max(map(lambda x, y: x + y, attrs_left, attrs_width)),
+            max(map(lambda x, y: x + y, attrs_top, attrs_height))
+        )
+        center_x, center_y, max_side = (
+            (min_left + max_right) / 2.0,
+            (min_top + max_bottom) / 2.0,
+            max(max_right - min_left, max_bottom - min_top)
+        )
+        bbox_left, bbox_top, bbox_width, bbox_height = (
+            center_x - max_side / 2.0,
+            center_y - max_side / 2.0,
+            max_side,
+            max_side
+        )
+        image = np.array(ExampleReader._preprocess(
+            Image.open(path_to_image_file),
+            bbox_left,
+            bbox_top,
+            bbox_width,
+            bbox_height
+        )).tobytes()
 
         example = example_pb2.Example()
         example.image = image
@@ -94,8 +114,7 @@ class ExampleReader(object):
         return example
 
 
-def convert_to_lmdb(path_to_dataset_dir_and_digit_struct_mat_file_tuples,
-                    path_to_lmdb_dirs, choose_writer_callback):
+def convert_to_lmdb(path_to_dataset_dir_and_digit_struct_mat_file_tuples, path_to_lmdb_dirs, choose_writer_callback):
     num_examples = []
     writers = []
 
@@ -105,7 +124,8 @@ def convert_to_lmdb(path_to_dataset_dir_and_digit_struct_mat_file_tuples,
 
     for path_to_dataset_dir, path_to_digit_struct_mat_file in path_to_dataset_dir_and_digit_struct_mat_file_tuples:
         path_to_image_files = glob.glob(
-            os.path.join(path_to_dataset_dir, '*.png'))
+            os.path.join(path_to_dataset_dir, '*.png')
+        )
         total_files = len(path_to_image_files)
         print('%d files found in %s' % (total_files, path_to_dataset_dir))
 
@@ -121,7 +141,8 @@ def convert_to_lmdb(path_to_dataset_dir_and_digit_struct_mat_file_tuples,
                     txn = txns[idx]
 
                     example = example_reader.read_and_convert(
-                        digit_struct_mat_file)
+                        digit_struct_mat_file
+                    )
                     if example is None:
                         break
 
@@ -154,12 +175,14 @@ def create_lmdb_meta_file(num_train_examples, num_val_examples, num_test_example
 def main(args):
     path_to_train_dir = os.path.join(args.data_dir, 'train')
     path_to_test_dir = os.path.join(args.data_dir, 'test')
-    # path_to_extra_dir = os.path.join(args.data_dir, 'extra')
     path_to_train_digit_struct_mat_file = os.path.join(
-        path_to_train_dir, 'digitStruct.mat')
+        path_to_train_dir,
+        'digitStruct.mat'
+    )
     path_to_test_digit_struct_mat_file = os.path.join(
-        path_to_test_dir, 'digitStruct.mat')
-    # path_to_extra_digit_struct_mat_file = os.path.join(path_to_extra_dir, 'digitStruct.mat')
+        path_to_test_dir,
+        'digitStruct.mat'
+    )
 
     path_to_train_lmdb_dir = os.path.join(args.data_dir, 'train.lmdb')
     path_to_val_lmdb_dir = os.path.join(args.data_dir, 'val.lmdb')
@@ -171,17 +194,22 @@ def main(args):
             path_to_dir), 'LMDB directory %s already exists' % path_to_dir
 
     print('Processing training data...')
-    [num_train_examples, num_val_examples] = convert_to_lmdb([(path_to_train_dir, path_to_train_digit_struct_mat_file)],
-                                                             [path_to_train_lmdb_dir,
-                                                                 path_to_val_lmdb_dir],
-                                                             lambda paths: 0 if random.random() > 0.1 else 1)
+    [num_train_examples, num_val_examples] = convert_to_lmdb(
+        [(path_to_train_dir, path_to_train_digit_struct_mat_file)],
+        [path_to_train_lmdb_dir, path_to_val_lmdb_dir],
+        lambda paths: 0 if random.random() > 0.1 else 1
+    )
     print('Processing test data...')
-    [num_test_examples] = convert_to_lmdb([(path_to_test_dir, path_to_test_digit_struct_mat_file)],
-                                          [path_to_test_lmdb_dir],
-                                          lambda paths: 0)
+    [num_test_examples] = convert_to_lmdb(
+        [(path_to_test_dir, path_to_test_digit_struct_mat_file)],
+        [path_to_test_lmdb_dir],
+        lambda paths: 0
+    )
 
-    create_lmdb_meta_file(num_train_examples, num_val_examples,
-                          num_test_examples, path_to_lmdb_meta_file)
+    create_lmdb_meta_file(
+        num_train_examples, num_val_examples,
+        num_test_examples, path_to_lmdb_meta_file
+    )
 
     print('Done')
 

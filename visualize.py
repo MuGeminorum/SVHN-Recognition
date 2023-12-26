@@ -1,11 +1,15 @@
-import argparse
 import os
+import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-l', '--logdir', default='logs',
-                    help='directory to read logs')
+parser.add_argument(
+    '-l',
+    '--logdir',
+    default='logs',
+    help='directory to read logs'
+)
 
 
 def _visualize(path_to_log_dir):
@@ -13,7 +17,7 @@ def _visualize(path_to_log_dir):
     plt.plot(losses)
     plt.xlabel('Step(k)')
     plt.ylabel('Loss')
-    plt.savefig('images\\loss.png')
+    plt.savefig('./images/loss.png')
     plt.show()
     # viz = Visdom()
     # viz.line(losses)
