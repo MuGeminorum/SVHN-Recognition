@@ -19,7 +19,8 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     package='',
     syntax='proto3',
     serialized_pb=_b(
-        '\n\rexample.proto\"8\n\x07\x45xample\x12\r\n\x05image\x18\x01 \x01(\x0c\x12\x0e\n\x06length\x18\x02 \x01(\x05\x12\x0e\n\x06\x64igits\x18\x03 \x03(\x05\x62\x06proto3')
+        '\n\rexample.proto\"8\n\x07\x45xample\x12\r\n\x05image\x18\x01 \x01(\x0c\x12\x0e\n\x06length\x18\x02 \x01(\x05\x12\x0e\n\x06\x64igits\x18\x03 \x03(\x05\x62\x06proto3'
+    )
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -53,19 +54,16 @@ _EXAMPLE = _descriptor.Descriptor(
             is_extension=False, extension_scope=None,
             options=None),
     ],
-    extensions=[
-    ],
+    extensions=[],
     nested_types=[],
-    enum_types=[
-    ],
+    enum_types=[],
     options=None,
     is_extendable=False,
     syntax='proto3',
     extension_ranges=[],
-    oneofs=[
-    ],
+    oneofs=[],
     serialized_start=17,
-    serialized_end=73,
+    serialized_end=73
 )
 
 DESCRIPTOR.message_types_by_name['Example'] = _EXAMPLE

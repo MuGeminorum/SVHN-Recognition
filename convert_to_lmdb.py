@@ -34,8 +34,8 @@ class ExampleReader(object):
         item = f['digitStruct']['bbox'][index].item()
         for key in ['label', 'left', 'top', 'width', 'height']:
             attr = f[item][key]
-            values = [f[attr[i].item()][0][0]
-                      for i in range(len(attr))] if len(attr) > 1 else [attr[0][0]]
+            values = [f[attr[i].item()][0][0] for i in range(
+                len(attr))] if len(attr) > 1 else [attr[0][0]]
             attrs[key] = values
 
         return attrs

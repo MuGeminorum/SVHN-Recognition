@@ -156,14 +156,19 @@ class Model(torch.jit.ScriptModule):
         path_to_models = glob.glob(os.path.join(
             path_to_dir, Model.CHECKPOINT_FILENAME_PATTERN.format('*')))
         if len(path_to_models) == maximum:
-            min_step = min([int(path_to_model.split('\\')[-1][6:-4])
-                           for path_to_model in path_to_models])
+            min_step = min(
+                [int(path_to_model.split('\\')[-1][6:-4])
+                 for path_to_model in path_to_models]
+            )
             path_to_min_step_model = os.path.join(
-                path_to_dir, Model.CHECKPOINT_FILENAME_PATTERN.format(min_step))
+                path_to_dir,
+                Model.CHECKPOINT_FILENAME_PATTERN.format(min_step)
+            )
             os.remove(path_to_min_step_model)
 
         path_to_checkpoint_file = os.path.join(
-            path_to_dir, Model.CHECKPOINT_FILENAME_PATTERN.format(step))
+            path_to_dir, Model.CHECKPOINT_FILENAME_PATTERN.format(step)
+        )
         torch.save(self.state_dict(), path_to_checkpoint_file)
         return path_to_checkpoint_file
 
