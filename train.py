@@ -108,7 +108,6 @@ def _train(path_to_train_lmdb_dir, path_to_val_lmdb_dir, path_to_log_dir, path_t
     initial_patience = training_options['patience']
     num_steps_to_show_loss = 100
     num_steps_to_check = 1000
-
     step = 0
     patience = initial_patience
     best_accuracy = 0.0
@@ -124,7 +123,8 @@ def _train(path_to_train_lmdb_dir, path_to_val_lmdb_dir, path_to_log_dir, path_t
     ])
     train_loader = torch.utils.data.DataLoader(
         Dataset(path_to_train_lmdb_dir, transform),
-        batch_size=batch_size, shuffle=False,
+        batch_size=batch_size,
+        shuffle=False,
         num_workers=0,
         pin_memory=True
     )

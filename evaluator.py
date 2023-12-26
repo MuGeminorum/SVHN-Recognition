@@ -1,8 +1,7 @@
 import torch
 import torch.utils.data
-from torchvision import transforms
-
 from dataset import Dataset
+from torchvision import transforms
 
 
 class Evaluator(object):
@@ -36,18 +35,22 @@ class Evaluator(object):
                 digit5_prediction = digit5_logits.max(1)[1]
 
                 if needs_include_length:
-                    num_correct += (length_prediction.eq(length_labels) &
-                                    digit1_prediction.eq(digits_labels[0]) &
-                                    digit2_prediction.eq(digits_labels[1]) &
-                                    digit3_prediction.eq(digits_labels[2]) &
-                                    digit4_prediction.eq(digits_labels[3]) &
-                                    digit5_prediction.eq(digits_labels[4])).cuda().sum()
+                    num_correct += (
+                        length_prediction.eq(length_labels) &
+                        digit1_prediction.eq(digits_labels[0]) &
+                        digit2_prediction.eq(digits_labels[1]) &
+                        digit3_prediction.eq(digits_labels[2]) &
+                        digit4_prediction.eq(digits_labels[3]) &
+                        digit5_prediction.eq(digits_labels[4])
+                    ).cuda().sum()
                 else:
-                    num_correct += (digit1_prediction.eq(digits_labels[0]) &
-                                    digit2_prediction.eq(digits_labels[1]) &
-                                    digit3_prediction.eq(digits_labels[2]) &
-                                    digit4_prediction.eq(digits_labels[3]) &
-                                    digit5_prediction.eq(digits_labels[4])).cuda().sum()
+                    num_correct += (
+                        digit1_prediction.eq(digits_labels[0]) &
+                        digit2_prediction.eq(digits_labels[1]) &
+                        digit3_prediction.eq(digits_labels[2]) &
+                        digit4_prediction.eq(digits_labels[3]) &
+                        digit5_prediction.eq(digits_labels[4])
+                    ).cuda().sum()
 
         accuracy = num_correct.item() / len(self._loader.dataset)
         return accuracy

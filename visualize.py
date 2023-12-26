@@ -19,8 +19,6 @@ def _visualize(path_to_log_dir):
     plt.ylabel('Loss')
     plt.savefig('./images/loss.png')
     plt.show()
-    # viz = Visdom()
-    # viz.line(losses)
 
 
 def main(args):
