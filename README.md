@@ -49,11 +49,3 @@ pip install -r requirements.txt
 
 ### Training curve
 ![loss](https://user-images.githubusercontent.com/20459298/233124972-36c30185-e3dc-48b8-b8a4-bc5767e6b507.png)
-
-### Example
-Download [saved model](https://github.com/MuGeminorum/SVHN-Recognition/releases/download/122000/logs.7z) to assigned path and run following commands:
-| Command                                                               |                                                     Sample                                                     | Result |
-| :-------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------: | :----- |
-| `python infer.py -c="./logs/model-122000.pth" -i="./images/03.png"`   |  ![03](https://user-images.githubusercontent.com/20459298/233124799-5d6d074e-aec1-4a1a-937d-1a031a329b37.png)  | 03     |
-| `python infer.py -c="./logs/model-122000.pth" -i="./images/457.png"`  | ![457](https://user-images.githubusercontent.com/20459298/233124853-8ec2d26d-eac7-48b6-84dc-7fdd099b9757.png)  | 457    |
-| `python infer.py -c="./logs/model-122000.pth" -i="./images/2003.png"` | ![2003](https://user-images.githubusercontent.com/20459298/233124905-af032c12-f949-4ca7-9132-443f5b3deb59.png) | 2003   |
