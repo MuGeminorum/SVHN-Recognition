@@ -2,10 +2,14 @@ import os
 import glob
 import h5py
 import lmdb
+import shutil
 import random
+import zipfile
 import argparse
+import requests
 import example_pb2
 import numpy as np
+from tqdm import tqdm
 from PIL import Image
 from meta import Meta
 
@@ -16,6 +20,56 @@ parser.add_argument(
     default='./data',
     help='directory to SVHN (format 1) folders and write the converted files'
 )
+
+
+def download_file(url, save_path, backup_url='https://www.modelscope.cn/api/v1/datasets/MuGeminorum/svhn/repo?Revision=master&FilePath=data.zip'):
+    try:
+        # 发起 GET 请求下载文件
+        response = requests.get(url, stream=True)
+
+        # 检查请求是否成功
+        response.raise_for_status()
+
+        # 获取文件大小
+        file_size = int(response.headers.get('content-length', 0))
+
+        # 使用 tqdm 显示下载进度条
+        with tqdm(total=file_size, unit='B', unit_scale=True, desc='Downloading') as pbar:
+            with open(save_path, 'wb') as file:
+                for chunk in response.iter_content(chunk_size=1024):
+                    if chunk:
+                        file.write(chunk)
+                        pbar.update(len(chunk))
+
+        print(
+            f"File has been successfully downloaded and saved to '{save_path}'."
+        )
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error: {e}")
+        download_file(backup_url, save_path)
+
+
+def unzip(zip_file_path, extract_to):
+    try:
+        # 打开 ZIP 文件
+        with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+            # 获取ZIP文件内的文件数量
+            num_files = len(zip_ref.infolist())
+
+            # 使用 tqdm 显示解压缩进度条
+            with tqdm(total=num_files, unit='file', desc=f'Extracting {zip_file_path} to {extract_to}...') as pbar:
+                # 逐个解压文件
+                for member in zip_ref.infolist():
+                    zip_ref.extract(member, extract_to)
+                    pbar.update(1)
+
+        print(
+            f"ZIP file '{zip_file_path}' has been successfully extracted to '{extract_to}'."
+        )
+
+    except Exception as e:
+        print(f"Error: {e}")
 
 
 class ExampleReader(object):
@@ -126,36 +180,27 @@ def convert_to_lmdb(path_to_dataset_dir_and_digit_struct_mat_file_tuples, path_t
         path_to_image_files = glob.glob(
             os.path.join(path_to_dataset_dir, '*.png')
         )
+        path_to_dataset_dir = path_to_dataset_dir.replace('\\', '/')
         total_files = len(path_to_image_files)
-        print('%d files found in %s' % (total_files, path_to_dataset_dir))
 
         with h5py.File(path_to_digit_struct_mat_file, 'r') as digit_struct_mat_file:
             example_reader = ExampleReader(path_to_image_files)
-            block_size = 10000
+            txns = [writer.begin(write=True) for writer in writers]
+            for _ in tqdm(range(total_files), desc='%d files found in %s' % (total_files, path_to_dataset_dir)):
+                idx = choose_writer_callback(path_to_lmdb_dirs)
+                txn = txns[idx]
 
-            for i in range(0, total_files, block_size):
-                txns = [writer.begin(write=True) for writer in writers]
+                example = example_reader.read_and_convert(
+                    digit_struct_mat_file
+                )
+                if example is None:
+                    break
 
-                for offset in range(block_size):
-                    idx = choose_writer_callback(path_to_lmdb_dirs)
-                    txn = txns[idx]
+                str_id = '{:08}'.format(num_examples[idx] + 1)
+                txn.put(str_id.encode(), example.SerializeToString())
+                num_examples[idx] += 1
 
-                    example = example_reader.read_and_convert(
-                        digit_struct_mat_file
-                    )
-                    if example is None:
-                        break
-
-                    str_id = '{:08}'.format(num_examples[idx] + 1)
-                    txn.put(str_id.encode(), example.SerializeToString())
-                    num_examples[idx] += 1
-
-                    index = i + offset
-                    path_to_image_file = path_to_image_files[index]
-                    print('(%d/%d) %s' %
-                          (index + 1, total_files, path_to_image_file))
-
-                [txn.commit() for txn in txns]
+            [txn.commit() for txn in txns]
 
     for writer in writers:
         writer.close()
@@ -215,4 +260,22 @@ def main(args):
 
 
 if __name__ == '__main__':
+    if os.path.exists('./data/train.lmdb'):
+        shutil.rmtree('./data/train.lmdb')
+
+    if os.path.exists('./data/val.lmdb'):
+        shutil.rmtree('./data/val.lmdb')
+
+    if os.path.exists('./data/test.lmdb'):
+        shutil.rmtree('./data/test.lmdb')
+
+    if not os.path.exists('./data.zip'):
+        download_file(
+            'https://huggingface.co/datasets/MuGeminorum/svhn/resolve/main/data.zip',
+            'data.zip'
+        )
+
+    if not os.path.exists('./data'):
+        unzip('data.zip', './')
+
     main(parser.parse_args())
