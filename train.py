@@ -12,6 +12,7 @@ from evaluator import Evaluator
 from datetime import datetime
 from dataset import Dataset
 from model import Model
+from tqdm import tqdm
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -155,7 +156,7 @@ def _train(path_to_train_lmdb_dir, path_to_val_lmdb_dir, path_to_log_dir, path_t
         losses = np.empty([0], dtype=np.float32)
 
     while True:
-        for _, (images, length_labels, digits_labels) in enumerate(train_loader):
+        for (images, length_labels, digits_labels) in tqdm(train_loader, desc='Loading data...'):
             start_time = time.time()
             images, length_labels, digits_labels = images.cuda(), length_labels.cuda(), [
                 digit_labels.cuda() for digit_labels in digits_labels]

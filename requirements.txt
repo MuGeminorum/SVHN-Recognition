@@ -3,3 +3,4 @@ lmdb
 numpy
 pillow
 matplotlib
+protobuf==3.19

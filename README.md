@@ -11,14 +11,6 @@ conda activate svhn
 pip install -r requirements.txt
 ```
 
-## Environment
-* Python 3.6
-* torch 1.0
-* torchvision 0.2.1
-* h5py
-* protobuf
-* lmdb
-
 ## Params
 <table>
     <tr>
@@ -43,32 +35,12 @@ pip install -r requirements.txt
     </tr>
 </table>
 
-## Deploy
-1. Clone the source code
+## Usage
+0. Clone the source code
     ```
     $ git clone git@github.com:MuGeminorum/SVHN-Recognition.git
     $ cd SVHN-Recognition
     ```
-
-2. Download [SVHN Dataset](http://ufldl.stanford.edu/housenumbers) Format 1 (train.tar.gz, test.tar.gz)
-
-3. Extract to data folder, now your folder structure should be like below:
-    ```
-    SVHN-Recognition
-        - data
-            - test
-                - 1.png 
-                - 2.png
-                - ...
-                - digitStruct.mat
-            - train
-                - 1.png 
-                - 2.png
-                - ...
-                - digitStruct.mat
-    ```
-
-## Run
 1. Run *convert_to_lmdb.py*
 2. Run *train.py*
 3. Run *infer.py*
