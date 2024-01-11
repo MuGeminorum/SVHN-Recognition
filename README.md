@@ -4,8 +4,6 @@
 [![](https://img.shields.io/badge/HF-SVHN-ffd21e.svg)](https://huggingface.co/spaces/MuGeminorum/SVHN-Recognition)
 [![](https://img.shields.io/badge/ModelScope-SVHN-624aff.svg)](https://www.modelscope.cn/studios/MuGeminorum/SVHN-Recognition)
 
-A PyTorch implementation of [Multi-digit Number Recognition from Street View Imagery using Deep Convolutional Neural Networks](http://arxiv.org/pdf/1312.6082.pdf)
-
 ## Requirements
 ```bash
 conda create -n svhn --yes --file conda.txt
@@ -47,5 +45,8 @@ pip install -r requirements.txt
 2. Run *train.py*
 3. Run *infer.py*
 
-### Training curve
+## Training curve
 ![loss](https://user-images.githubusercontent.com/20459298/233124972-36c30185-e3dc-48b8-b8a4-bc5767e6b507.png)
+
+## Reference
+[1] [Multi-digit Number Recognition from Street View Imagery using Deep Convolutional Neural Networks](http://arxiv.org/pdf/1312.6082.pdf)
