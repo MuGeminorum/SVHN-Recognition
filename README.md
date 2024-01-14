@@ -37,10 +37,10 @@ pip install -r requirements.txt
 
 ## Usage
 0. Clone the source code
-    ```
-    $ git clone git@github.com:MuGeminorum/SVHN-Recognition.git
-    $ cd SVHN-Recognition
-    ```
+```bash
+git clone git@github.com:MuGeminorum/SVHN-Recognition.git
+cd SVHN-Recognition
+```
 1. Run *convert_to_lmdb.py*
 2. Run *train.py*
 3. Run *infer.py*
