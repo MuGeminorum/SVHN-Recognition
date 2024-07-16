@@ -36,17 +36,16 @@ pip install -r requirements.txt
 </table>
 
 ## Usage
-0. Clone the source code
+1. Clone the source code:
 ```bash
 git clone git@github.com:MuGeminorum/SVHN-Recognition.git
 cd SVHN-Recognition
 ```
-1. Run *convert_to_lmdb.py*
-2. Run *train.py*
-3. Run *infer.py*
+2. Run `convert_to_lmdb.py`
+3. Run `train.py`
 
 ## Training curve
-![loss](https://user-images.githubusercontent.com/20459298/233124972-36c30185-e3dc-48b8-b8a4-bc5767e6b507.png)
+![loss](./docs/loss.png)
 
 ## Reference
 [1] [Multi-digit Number Recognition from Street View Imagery using Deep Convolutional Neural Networks](http://arxiv.org/pdf/1312.6082.pdf)
