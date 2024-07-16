@@ -2,6 +2,7 @@ import os
 import time
 import torch
 import argparse
+import warnings
 import torch.utils.data
 import torch.nn.functional
 import torch.optim as optim
@@ -13,9 +14,7 @@ from datetime import datetime
 from dataset import Dataset
 from model import Model
 from tqdm import tqdm
-import warnings
 
-warnings.filterwarnings("ignore")
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -244,4 +243,5 @@ def main(args):
 
 
 if __name__ == "__main__":
+    warnings.filterwarnings("ignore")
     main(parser.parse_args())
