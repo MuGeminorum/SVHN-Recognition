@@ -1,8 +1,8 @@
 # SVHN-Recognition
 [![license](https://img.shields.io/github/license/MuGeminorum/SVHN-Recognition.svg)](https://github.com/MuGeminorum/SVHN-Recognition/blob/master/LICENSE)
 [![Python application](https://github.com/MuGeminorum/SVHN-Recognition/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/MuGeminorum/SVHN-Recognition/actions/workflows/python-app.yml)
-[![hf](https://img.shields.io/badge/HuggingFace-SVHN-ffd21e.svg)](https://huggingface.co/spaces/MuGeminorum/SVHN-Recognition)
-[![ms](https://img.shields.io/badge/ModelScope-SVHN-624aff.svg)](https://www.modelscope.cn/studios/MuGeminorum/SVHN-Recognition)
+[![hf](https://img.shields.io/badge/HuggingFace-SVHN-ffd21e.svg)](https://huggingface.co/spaces/MuGeminorum/svhn)
+[![ms](https://img.shields.io/badge/ModelScope-SVHN-624aff.svg)](https://www.modelscope.cn/studios/MuGeminorum/svhn)
 
 This project is a PyTorch implementation that uses deep CNN to recognize multi-digit numbers using the SVHN dataset derived from Google Street View house numbers, each picture contains a set of numbers from 0 to 9, the model is tested to have 89% accuracy.
 
